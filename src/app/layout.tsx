@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import './globals.css';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,14 +19,26 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang='en'>
-        <body className={inter.className}>
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          {children}
+        <body className={`${inter.className} m-0`}>
+          <header className='p-4 shadow'>
+            <nav className='flex items-center justify-between'>
+              <ul className='flex gap-4'>
+                <li>
+                  <Link href='/'>Home</Link>
+                </li>
+                <li>
+                  <Link href='/dashboard'>Dashboard</Link>
+                </li>
+              </ul>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </nav>
+          </header>
+          <main className='min-h-screen'>{children}</main>
         </body>
       </html>
     </ClerkProvider>
