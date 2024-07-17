@@ -8,6 +8,17 @@ const client = new Luzmo({
   host: process.env.NEXT_PUBLIC_LUZMO_API_HOST!,
 }) as any;
 
+interface Dashboard {
+  id: string;
+  type: 'dashboard';
+  rights: {
+    Own: boolean;
+    Use: boolean;
+    Read: boolean;
+    Modify: boolean;
+  };
+}
+
 export default async function Dashboard() {
   const user = await currentUser();
 
@@ -36,4 +47,13 @@ export default async function Dashboard() {
   } = await response;
 
   return <LuzmoDashboard authKey={id} authToken={token} dashboardId={dashboards[0].id} />;
+
+  // return (
+  //   <>
+  //     {dashboards.map((dashboard: Dashboard) => {
+  //       const { id } = dashboard;
+  //       return <LuzmoDashboard key={id} authKey={id} authToken={token} dashboardId={id} />;
+  //     })}
+  //   </>
+  // );
 }
