@@ -5,17 +5,34 @@ import { LuzmoDashboardComponent } from '@luzmo/react-embed';
 interface Props {
   authKey: string;
   authToken: string;
-  dashboardId: string;
+  dashboards: Dashboard[];
+}
+interface Dashboard {
+  id: string;
+  type: 'dashboard';
+  rights: {
+    Own: boolean;
+    Use: boolean;
+    Read: boolean;
+    Modify: boolean;
+  };
 }
 
-export default function LuzmoDashboard({ authKey, authToken, dashboardId }: Props) {
+export default function LuzmoDashboard({ authKey, authToken, dashboards }: Props) {
   return (
-    <LuzmoDashboardComponent
-      appServer={process.env.NEXT_PUBLIC_LUZMO_APP_SERVER}
-      apiHost={process.env.NEXT_PUBLIC_LUZMO_API_HOST}
-      authKey={authKey}
-      authToken={authToken}
-      dashboardId={dashboardId}
-    ></LuzmoDashboardComponent>
+    <>
+      {dashboards.map((dashboard: Dashboard) => {
+        const { id } = dashboard;
+        return (
+          <LuzmoDashboardComponent
+            appServer={process.env.NEXT_PUBLIC_LUZMO_APP_SERVER}
+            apiHost={process.env.NEXT_PUBLIC_LUZMO_API_HOST}
+            authKey={authKey}
+            authToken={authToken}
+            dashboardId={id}
+          ></LuzmoDashboardComponent>
+        );
+      })}
+    </>
   );
 }
