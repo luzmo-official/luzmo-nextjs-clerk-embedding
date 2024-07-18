@@ -1,6 +1,6 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
-const Luzmo = require('@luzmo/nodejs-sdk');
+import Luzmo from '@luzmo/nodejs-sdk';
 
 const client = new Luzmo({
   api_key: process.env.LUZMO_API_KEY,
@@ -14,14 +14,14 @@ const init = async () => {
     id: process.env.MANAGER_LUZMO_COLLECTION_ID,
   });
 
-  console.log(await manager);
+  console.log(JSON(manager, null, 2));
 
   const support = await client.associate('securable', 'support dashboard id', {
     role: 'Collections',
     id: process.env.SUPPORT_LUZMO_COLLECTION_ID,
   });
 
-  console.log(await support);
+  console.log(JSON.stringify(support, null, 2));
 };
 
 init();
