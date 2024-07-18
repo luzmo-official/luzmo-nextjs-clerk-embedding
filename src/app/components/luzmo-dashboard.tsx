@@ -25,6 +25,7 @@ export default function LuzmoDashboard({ authKey, authToken, dashboards }: Props
         const { id } = dashboard;
         return (
           <LuzmoDashboardComponent
+            key={id}
             appServer={process.env.NEXT_PUBLIC_LUZMO_APP_SERVER}
             apiHost={process.env.NEXT_PUBLIC_LUZMO_API_HOST}
             authKey={authKey}
