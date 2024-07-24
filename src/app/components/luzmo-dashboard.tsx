@@ -19,21 +19,23 @@ interface Dashboard {
 }
 
 export default function LuzmoDashboard({ authKey, authToken, dashboards }: Props) {
+  // Check if the dashboards array is not empty
+  if (dashboards.length === 0) {
+    return null; 
+  }
+
+  // Get the first dashboard
+  const firstDashboard = dashboards[0];
+  const { id } = firstDashboard;
+
   return (
-    <>
-      {dashboards.map((dashboard: Dashboard) => {
-        const { id } = dashboard;
-        return (
-          <LuzmoDashboardComponent
-            key={id}
-            appServer={process.env.NEXT_PUBLIC_LUZMO_APP_SERVER}
-            apiHost={process.env.NEXT_PUBLIC_LUZMO_API_HOST}
-            authKey={authKey}
-            authToken={authToken}
-            dashboardId={id}
-          ></LuzmoDashboardComponent>
-        );
-      })}
-    </>
+    <LuzmoDashboardComponent
+      key={id}
+      appServer={process.env.NEXT_PUBLIC_LUZMO_APP_SERVER}
+      apiHost={process.env.NEXT_PUBLIC_LUZMO_API_HOST}
+      authKey={authKey}
+      authToken={authToken}
+      dashboardId={id}
+    ></LuzmoDashboardComponent>
   );
 }
